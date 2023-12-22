@@ -1,6 +1,7 @@
 var BTN=document.querySelector("button")
-var TEXTAREA=document.querySelector("textarea")
+var TEXTAREA=document.querySelector("#textSpeech")
 var DIV=document.querySelector("#reponse_msg")
+var BTN_MIC=document.querySelector("#bMic")
 
 //var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 var recognition = new webkitSpeechRecognition();
