@@ -1,8 +1,8 @@
-var BTN=document.querySelector("button")
+var BTN=document.querySelector("#benv")
 var TEXTAREA=document.querySelector("#textSpeech")
 var DIV=document.querySelector("#reponse_msg")
-var BTN_MIC=document.querySelector("#bMic")
-
+var BTN_MIC=document.querySelector("#bMic") 
+var BTN_SP=document.querySelector("#bSpeak")
 //var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 var recognition = new webkitSpeechRecognition();
 recognition.continuous = false;
@@ -16,6 +16,7 @@ BTN_MIC.addEventListener("click", speechToText)
 
 //fonction principale
 function chatBot(){
+
     let text=TEXTAREA.value
     //je dois communiquer avec le backend
     var url_backend="http://127.0.0.1:8000/analyse"
@@ -30,7 +31,21 @@ function chatBot(){
     .then(reponse=>{
         reponse.json()
         .then(data=>{
-            console.log(data)
+            BTN_SP.style.display=""
+            BTN_SP.addEventListener("click",texteToSpeech(data.msg))
+            console.log(data.msg)
+            var i = 0;
+            var txt = data.msg; /* The text */
+            var speed = 100; /* The speed/duration of the effect in milliseconds */
+
+            function typeWriter() {
+            if (i < txt.length) {
+                DIV.innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+            }
+            typeWriter()
         })
     })
     .catch(e=>{
@@ -38,6 +53,12 @@ function chatBot(){
     })
 
 
+}
+
+function texteToSpeech(texte){
+    //lire sous format audio
+    let utterance = new SpeechSynthesisUtterance(texte);
+    speechSynthesis.speak(utterance);
 }
 
 function speechToText(){
