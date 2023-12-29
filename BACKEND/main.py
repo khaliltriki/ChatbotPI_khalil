@@ -61,7 +61,7 @@ def analyse_endpoint(analyse_input: AnalyseTexteInput):
 
 @app.post("/query_openai")
 def query_openai(query: str):
-    api_key = "the key"
+    api_key = "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"
     openai.api_key = api_key  
 
     Client = openai.ChatCompletion.create(
@@ -77,39 +77,6 @@ def query_openai(query: str):
     response = Client.choices[0].message["content"]
     #print(response)
     return response
-
-@app.post("/analyseV1")
-def analyse_endpointv1(analyse_input: AnalyseTexteInput):
-    print(analyse_input)
-    #miniscule
-    texte=(analyse_input.texte).lower()
-    #ponctuation
-    texte = ' '.join([char for char in texte if char not in string.punctuation])
-    #texte.translate(str.maketrans("", "", string.punctuation))
-
-    #erreur:Faute d'orthographe
-    """blob = TextBlob(texte)
-    texte = blob.correct()
-    print(texte.words)
-    print(type(texte.words))"""
-
-    #tokenisation
-    tokens=nltk.word_tokenize(texte)
-    print(tokens)
-
-    #stopwords
-    stop_words = set(stopwords.words('english'))
-    tokens = [word for word in tokens if word not in stop_words]
-    print(tokens)
-
-    #Stemmer & Lemmatization
-    
-    #porter = PorterStemmer()
-    
-    lemmatizer = WordNetLemmatizer()
-    #stemmed_words = [porter.stem(word) for word in tokens]
-    lemmatized_words = [lemmatizer.lemmatize(word) for word in tokens]
-    print(lemmatized_words)
 
     return {"msg": analyse_input}
 if __name__ == "__main__":

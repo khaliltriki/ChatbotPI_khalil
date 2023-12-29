@@ -60,14 +60,12 @@ function texteToSpeech(texte){
     let utterance = new SpeechSynthesisUtterance(texte);
     speechSynthesis.speak(utterance);
 }
-
 function speechToText(){
     alert("Je suis speech to text")
     //1ère partie déclencher l'API Speech To Text
     recognition.start();
 
 }
-
 recognition.onresult = function(event) {
 
     //2ème partie récupérer le texte
