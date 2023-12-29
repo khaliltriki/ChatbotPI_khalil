@@ -61,7 +61,7 @@ def analyse_endpoint(analyse_input: AnalyseTexteInput):
 
 @app.post("/query_openai")
 def query_openai(query: str):
-    api_key = "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"
+    api_key = "the key"
     openai.api_key = api_key  
 
     Client = openai.ChatCompletion.create(
